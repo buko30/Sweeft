@@ -1,0 +1,48 @@
+--1
+CREATE TABLE Teacher (
+    TeacherID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Surname VARCHAR(50),
+    Sex VARCHAR(50),
+    Subject VARCHAR(50)
+);
+
+CREATE TABLE Pupil (
+    PupilID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Surname VARCHAR(50),
+    Sex VARCHAR(50),
+    Grade INT
+);
+
+CREATE TABLE Teaching (
+    TeacherID INT,
+    PupilID INT,
+    FOREIGN KEY (TeacherID) REFERENCES Teacher(TeacherID),
+    FOREIGN KEY (PupilID) REFERENCES Pupil(PupilID),
+    PRIMARY KEY (TeacherID, PupilID)
+);
+
+--2
+
+INSERT INTO Teacher (TeacherID, Name, Surname, Sex, Subject) VALUES
+(1, 'Davit', 'Gociridze', 'Male', 'Math'),
+(2, 'Nikoloz', 'Kapanadze', 'Male', 'Science');
+
+INSERT INTO Pupil (PupilID, Name, Surname, Sex, Grade) VALUES
+(1, 'Giorgi', 'Bukia', 'Male', 12),
+(2, 'Mariam', 'Giorgadze', 'Female', 11);
+
+INSERT INTO Teaching (TeacherID, PupilID) VALUES
+(1, 1),
+(2, 1),
+(2, 2);
+
+
+SELECT DISTINCT t.*
+FROM Teacher t
+JOIN Teaching tching ON t.TeacherID = tching.TeacherID
+JOIN Pupil p ON tching.PupilID = p.PupilID
+WHERE p.Name = 'Alice';
+
+
